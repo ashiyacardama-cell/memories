@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Memories of Today</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Special+Elite&family=Courier+Prime:wght@700&family=VT323&display=swap">
+<style>
+:root{--wine:#5c2a22;--wine2:#6b3a35;--sage:#b1b295;--olive:#77705a;--amber:#cf8b4f;--paper:#efe6d2;--ink:#3a2c26;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(120% 80% at 70% 40%,#33271f,#221914 70%);color:var(--paper);font-family:"Special Elite","Courier New",monospace;overflow:hidden}
+body::before{content:"";position:fixed;left:0;top:0;bottom:0;width:22vw;background:linear-gradient(90deg,var(--wine),rgba(92,42,34,0));z-index:0}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.14;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding-bottom:calc(24dvh - 6px)}
+#cam{align-self:flex-end;margin:8px 16px 0 0;background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;width:96px}
+#cam svg{width:96px;height:auto;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.5))}
+button:focus-visible{outline:3px solid var(--sage);outline-offset:3px}
+h1{margin:6px 0 0;text-align:center;font:400 clamp(1.7rem,8.4vw,2.4rem)/1.15 Shrikhand,Georgia,serif;font-style:italic;color:var(--amber);text-shadow:3px 3px 0 var(--wine);text-wrap:balance;padding:0 12px}
+.stage{flex:1;min-height:0;container-type:size;display:flex;align-items:center;justify-content:center;margin:8px 0}
+#stack{--w:min(78cqw,calc(100cqh*.78));position:relative;width:var(--w);height:calc(var(--w)*1.22);touch-action:pan-y}
+.card{position:absolute;inset:0;background:var(--paper);padding:5% 5% 0;display:flex;flex-direction:column;border-radius:3px;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.5),inset 0 0 0 1px rgba(0,0,0,.1)}
+.ph{position:relative;flex:1;min-height:0;overflow:hidden;background:var(--olive);box-shadow:inset 0 0 14px rgba(0,0,0,.5)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;filter:sepia(.22) contrast(1.05) saturate(.9)}
+.back{transition:transform .3s ease}
+.back .ph img{filter:sepia(.22) brightness(.7)}
+.ph img{transition:filter .3s}
+.cap{height:17%;display:flex;align-items:center;justify-content:center;font:400 .8rem "Special Elite",monospace;color:var(--ink)}
+.seal{display:inline-block;transform:rotate(-2deg);color:#a8281f;border:2px solid #a8281f;border-radius:3px;padding:2px 9px;font:700 .72rem "Courier Prime","Courier New",monospace;letter-spacing:.16em;text-transform:uppercase;opacity:.88;text-shadow:1px 1px 0 rgba(255,255,255,.55),-1px -1px 0 rgba(0,0,0,.18);box-shadow:inset 0 0 0 1px rgba(168,40,31,.35);-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -3.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -3.4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E")}
+.seal{border:0;box-shadow:none;padding:0;-webkit-mask-image:none;mask-image:none;opacity:1;color:#a02a20;font-size:.85rem;letter-spacing:.2em;text-shadow:0 1px 0 rgba(255,255,255,.6),0 -1px 0 rgba(50,8,4,.5),0 0 1px rgba(50,8,4,.35)}
+.day .seal{color:#8f1f1a}
+#shot{position:fixed;inset:0;z-index:9;background:rgba(20,14,11,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fi .25s}
+#shot.out{opacity:0;transition:opacity .4s}
+@keyframes fi{from{opacity:0}}
+.scam{position:relative;z-index:2;width:min(62vw,260px);height:auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.6));animation:camin .5s ease-out both,click .25s .8s}
+@keyframes camin{from{opacity:0;transform:translateY(-30px) scale(.9)}}
+@keyframes click{50%{transform:scale(.96)}}
+#shot .spol{position:relative;inset:auto;z-index:1;width:min(48vw,200px);height:calc(min(48vw,200px)*1.22);margin-top:-30px;transform:rotate(-3deg);clip-path:inset(0 0 100% 0);animation:eject 1s 1.1s ease-out forwards}
+@keyframes eject{from{clip-path:inset(0 0 100% 0);transform:translateY(-40px) rotate(-3deg)}to{clip-path:inset(-20px -20px -20px -20px);transform:rotate(-3deg)}}
+.flash{position:absolute;inset:0;z-index:3;background:#fff;opacity:0;animation:fl2 .5s .8s ease-out}
+@keyframes fl2{10%{opacity:.95}}
+#shot .seal{opacity:0;animation:press .5s 2.4s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes press{0%{opacity:0;transform:scale(2.2) rotate(-2deg)}60%{opacity:1;transform:scale(.92) rotate(-2deg)}100%{opacity:1;transform:scale(1) rotate(-2deg)}}
+@media (prefers-reduced-motion:reduce){#shot *{animation-duration:.01s!important;animation-delay:0s!important}}
+.top{z-index:3;cursor:grab;transform:rotate(-3deg)}
+.in{animation:pop .3s ease-out}
+@keyframes pop{from{transform:rotate(-3deg) scale(.94);opacity:.6}to{transform:rotate(-3deg) scale(1);opacity:1}}
+.day{background:linear-gradient(135deg,#f2c98a,#cf8b4f 45%,#e9b878);box-shadow:0 0 0 2px #221914,0 0 30px 6px rgba(207,139,79,.55),0 12px 24px rgba(0,0,0,.5);animation:glow 3.6s ease-in-out infinite}
+.day .cap{color:#4a2a14}
+.day.in{animation:pop .3s ease-out,glow 3.6s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 2px #221914,0 0 48px 12px rgba(207,139,79,.8),0 12px 24px rgba(0,0,0,.5)}}
+.sash{position:absolute;top:20px;left:-42px;width:150px;transform:rotate(-40deg);background:var(--wine2);color:#f3eedd;text-align:center;padding:3px 0;font:700 .58rem "Courier Prime",monospace;letter-spacing:.1em;box-shadow:0 2px 5px rgba(0,0,0,.5);z-index:2}
+.empty{display:grid;place-items:center;background:var(--amber);color:#6b3a1c;text-align:center;padding:16px;font-size:1.15rem;cursor:pointer}
+.tape{display:inline-block;background:#1c1715;color:#f3eedd;font:700 .72rem "Courier Prime","Courier New",monospace;letter-spacing:.14em;text-shadow:0 1px 0 #000,0 -1px 0 rgba(255,255,255,.18);padding:4px 10px;border-radius:2px;text-transform:uppercase;white-space:nowrap}
+#cam .tape{font-size:.58rem;padding:3px 7px}
+.hint{display:flex;align-items:center;justify-content:center;gap:12px;padding:0 5vw}
+.hint .tape{font-size:1.05rem;letter-spacing:.2em;padding:5px 12px}
+.tw{margin:0;font-size:.85rem;line-height:1.4;color:var(--amber);max-width:46vw}
+#float{position:fixed;left:0;right:0;bottom:0;height:calc(24dvh + env(safe-area-inset-bottom,0px));pointer-events:none;overflow:hidden;z-index:4}
+.b{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);max-width:74vw;background:var(--paper);color:var(--ink);border-left:4px solid var(--amber);padding:6px 11px;border-radius:2px;font:400 .88rem/1.35 "Special Elite",monospace;box-shadow:0 3px 8px rgba(0,0,0,.45);opacity:0;animation:fl 11s linear forwards;overflow-wrap:anywhere}
+.b.l{left:14px}.b.r{right:14px}
+.b small{display:block;color:var(--wine2);font-size:.7rem}
+@keyframes fl{0%{transform:translateY(0) rotate(var(--rot));opacity:0}12%{opacity:1}68%{opacity:1}100%{transform:translateY(-19dvh) rotate(var(--rot));opacity:0}}
+#sheet{position:fixed;left:0;right:0;bottom:0;background:var(--paper);color:var(--ink);padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));border-top:6px solid var(--amber);transform:translateY(110%);transition:transform .25s;z-index:6}
+#sheet.open{transform:none}
+input,textarea{width:100%;font:400 1rem "Special Elite","Courier New",monospace;padding:10px;border-radius:2px;border:1px solid var(--olive);background:#fbf6e8;color:var(--ink);margin-bottom:8px}
+textarea{height:76px;resize:none}
+.row{display:flex;gap:8px;align-items:center}
+.row span{flex:1;font-size:.8rem}
+.p,.s{font:700 .8rem "Courier Prime",monospace;letter-spacing:.1em;border:0;border-radius:2px;padding:10px 16px;cursor:pointer;text-transform:uppercase}
+.p{background:var(--wine2);color:#f3eedd}.s{background:var(--olive);color:#f3eedd}
+@media (prefers-reduced-motion:reduce){.day,.day.in,.in{animation:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <button id="cam" aria-label="Add more memory">
+    <svg viewBox="0 0 160 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4d5bb"/><stop offset=".55" stop-color="#b1b295"/><stop offset="1" stop-color="#77705a"/></linearGradient>
+        <radialGradient id="lg" cx=".35" cy=".3"><stop offset="0" stop-color="#4a4541"/><stop offset="1" stop-color="#0f0d0c"/></radialGradient>
+      </defs>
+      <rect x="4" y="24" width="152" height="68" rx="7" fill="#2f2b29"/>
+      <rect x="4" y="12" width="152" height="34" rx="6" fill="url(#mt)"/>
+      <rect x="4" y="44" width="152" height="3" fill="#1c1917"/>
+      <rect x="12" y="52" width="40" height="34" rx="3" fill="#262220"/>
+      <rect x="64" y="19" width="34" height="14" rx="2" fill="#1e1b1a" stroke="#77705a" stroke-width="2"/>
+      <rect x="116" y="19" width="26" height="14" rx="2" fill="#4a463d"/>
+      <circle cx="26" cy="12" r="8" fill="#77705a"/><circle cx="26" cy="12" r="5.5" fill="#cf8b4f"/>
+      <circle cx="100" cy="64" r="31" fill="#1c1917" stroke="url(#mt)" stroke-width="4"/>
+      <circle cx="100" cy="64" r="23" fill="none" stroke="#77705a" stroke-width="3"/>
+      <circle cx="100" cy="64" r="17" fill="url(#lg)"/>
+      <circle cx="108" cy="56" r="4" fill="#cf8b4f" opacity=".9"/>
+    </svg>
+    <span class="tape">add more memory</span>
+  </button>
+  <input id="file" type="file" accept="image/*" multiple hidden>
+  <h1>memories of today!</h1>
+  <div class="stage"><div id="stack"></div></div>
+  <div class="hint"><span class="tape">swipe</span><p class="tw">right to comment, left for the next memory</p></div>
+</div>
+<div id="float"></div>
+<div id="sheet" role="dialog" aria-label="Add a comment">
+  <input id="name" maxlength="24" placeholder="Your name (optional)">
+  <textarea id="txt" maxlength="80" placeholder="Say something short…"></textarea>
+  <div class="row"><span id="cnt">0/80</span><button class="s" id="cancel">Cancel</button><button class="p" id="post">Post</button></div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const TZ='Asia/Manila';
+let photos=[],pick=null,order=[],pos=0,idx=0,topEl=null;
+// ===== SUPABASE SETUP: paste your two values between the quotes =====
+const SUPABASE_URL='https://iwzxqnyxxohjmscoflkf.supabase.co';
+const SUPABASE_KEY='sb_publishable_0GlqOGwNfxFJPl_nt0y2Zw_H8W9BO6p';
+// ====================================================================
+const READY=!SUPABASE_URL.startsWith('PASTE')&&!SUPABASE_KEY.startsWith('PASTE');
+const hd=x=>({apikey:SUPABASE_KEY,...(SUPABASE_KEY.startsWith('eyJ')?{Authorization:'Bearer '+SUPABASE_KEY}:{}),...x});
+const api=async(path,opt={})=>{const r=await fetch(SUPABASE_URL+path,{...opt,headers:hd(opt.headers)});const t=await r.text();if(!r.ok)throw new Error(t);return t?JSON.parse(t):null};
+const pubUrl=p=>SUPABASE_URL+'/storage/v1/object/public/photos/'+p;
+async function loadPhotos(){
+  const rows=await api('/rest/v1/photos?select=id,path,uploaded_at,comments(name,text,created_at)&order=uploaded_at.asc');
+  photos=rows.map(r=>({id:r.id,src:pubUrl(r.path),uploaded:r.uploaded_at,comments:(r.comments||[]).sort((a,b)=>a.created_at<b.created_at?-1:1)}));
+}
+async function ensurePick(){
+  const d=dayKey();
+  if(!photos.length){pick=null;return false}
+  if(pick&&pick.day===d&&byId(pick.id))return false;
+  const get=()=>api('/rest/v1/daily_pick?select=photo_id&day=eq.'+d);
+  let r=await get();
+  if(!r.length){
+    const id=photos[Math.floor(Math.random()*photos.length)].id;
+    await api('/rest/v1/daily_pick?on_conflict=day',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify({day:d,photo_id:id})}).catch(()=>{});
+    r=await get();
+  }
+  if(!r.length||!byId(r[0].photo_id))return false;
+  pick={day:d,id:r[0].photo_id};return true;
+}
+async function refresh(){
+  try{
+    await loadPhotos();
+    const ids=new Set(photos.map(p=>p.id));
+    const changed=await ensurePick();
+    const had=order.length;
+    order=order.filter(i=>ids.has(i));
+    photos.forEach(p=>{if(!order.includes(p.id))order.push(p.id)});
+    if(photos.length&&(!had||changed||pos>=order.length)){build();render(true)}
+  }catch(e){}
+}
+const ymd=d=>new Intl.DateTimeFormat('en-CA',{timeZone:TZ}).format(d);
+const dayKey=()=>ymd(new Date());
+const fmt=iso=>new Date(iso).toLocaleDateString('en-US',{timeZone:TZ,month:'short',day:'numeric',year:'numeric'});
+const stampTxt=iso=>{const [y,m,d]=ymd(new Date(iso)).split('-');return '’'+y.slice(2)+' '+m+' '+d};
+const byId=id=>photos.find(p=>p.id===id);
+const cur=()=>byId(order[pos]);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function build(){order=pick?[pick.id,...shuffle(photos.filter(p=>p.id!==pick.id).map(p=>p.id))]:shuffle(photos.map(p=>p.id));pos=0}
+const ROT=[-3,7,-9,3],PH=['#6b3a35','#b1b295','#77705a'];
+function polaroid(cls,p,filler){
+  const d=document.createElement('div');d.className='card '+cls;
+  const ph=document.createElement('div');ph.className='ph';
+  if(p){const im=new Image();im.src=p.src;im.alt=cls==='back'?'':'Memory from '+fmt(p.uploaded);im.draggable=false;ph.appendChild(im)}
+  else if(filler)ph.style.background=filler;
+  const cap=document.createElement('div');cap.className='cap';
+  d.append(ph,cap);return {d,ph,cap};
+}
+function render(anim){
+  const st=$('stack');st.innerHTML='';$('float').innerHTML='';idx=0;
+  const n=order.length;
+  for(let k=3;k>=1;k--){
+    const p=n>k?byId(order[(pos+k)%n]):null;
+    const c=polaroid('back',p,PH[k-1]);c.d.style.transform='rotate('+ROT[k]+'deg)';st.appendChild(c.d);
+  }
+  const p=cur();
+  const c=polaroid('top'+(p&&pick&&p.id===pick.id?' day':'')+(anim?' in':''),p,null);
+  if(p){
+    const sl=document.createElement('span');sl.className='seal';sl.textContent=fmt(p.uploaded);c.cap.appendChild(sl);
+    if(c.d.classList.contains('day')){const b=document.createElement('div');b.className='sash';b.textContent='photo of the day';c.d.appendChild(b)}
+  }else{
+    c.ph.classList.add('empty');c.ph.textContent=READY?'add your first memory':'setup needed: paste your Supabase URL and key in index.html';c.ph.onclick=()=>$('file').click();
+  }
+  st.appendChild(c.d);topEl=c.d;
+  if(p)spawn();
+}
+function spawn(){
+  const p=cur();if(!p||!p.comments.length||document.hidden)return;
+  const c=p.comments[idx%p.comments.length];
+  const b=document.createElement('div');b.className='b '+(idx%2?'r':'l');
+  b.style.setProperty('--rot',(idx%2?1.4:-1.4)+'deg');idx++;
+  const s=document.createElement('small');s.textContent=c.name||'Anonymous';
+  b.append(s,document.createTextNode(c.text));
+  b.addEventListener('animationend',()=>b.remove());
+  $('float').appendChild(b);
+}
+setInterval(spawn,5000);
+setInterval(()=>{if(READY&&!document.hidden)refresh()},30000);
+
+// upload
+$('cam').onclick=()=>$('file').click();
+function playShot(photo){return new Promise(res=>{
+  const o=document.createElement('div');o.id='shot';
+  const cam=$('cam').querySelector('svg').cloneNode(true);cam.setAttribute('class','scam');
+  const pol=document.createElement('div');pol.className='card spol';
+  const ph=document.createElement('div');ph.className='ph';const im=new Image();im.src=photo.src;im.alt='';ph.appendChild(im);
+  const cap=document.createElement('div');cap.className='cap';
+  const sl=document.createElement('span');sl.className='seal';sl.textContent=fmt(photo.uploaded);cap.appendChild(sl);
+  pol.append(ph,cap);
+  const fl=document.createElement('div');fl.className='flash';
+  o.append(cam,pol,fl);document.body.appendChild(o);
+  setTimeout(()=>{o.classList.add('out');setTimeout(()=>{o.remove();res()},400)},3600);
+})}
+function shrink(file){return new Promise(res=>{
+  const r=new FileReader();
+  r.onload=()=>{const im=new Image();im.onload=()=>{
+    const m=1000,k=Math.min(1,m/Math.max(im.width,im.height));
+    const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+    c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(b=>res(b),'image/jpeg',.8)};
+    im.onerror=()=>res(null);im.src=r.result};
+  r.onerror=()=>res(null);r.readAsDataURL(file)})}
+$('file').onchange=async e=>{
+  if(!READY){alert('Finish setup first: paste your Supabase URL and key into index.html.');e.target.value='';return}
+  let last=null;
+  for(const f of e.target.files){
+    const blob=await shrink(f);if(!blob)continue;
+    const path=Date.now().toString(36)+Math.random().toString(36).slice(2,8)+'.jpg';
+    try{
+      await api('/storage/v1/object/photos/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg'},body:blob});
+      const row=await api('/rest/v1/photos',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({path})});
+      last={src:URL.createObjectURL(blob),uploaded:row[0].uploaded_at};
+    }catch(err){alert('Upload failed. Check your Supabase setup.')}
+  }
+  e.target.value='';
+  if(!last)return;
+  await playShot(last);
+  await refresh();
+};
+
+// swipe: left = next memory, right = comment
+const stack=$('stack');let sx=null,dx=0;
+stack.addEventListener('pointerdown',e=>{if(!photos.length)return;sx=e.clientX;dx=0;stack.setPointerCapture(e.pointerId);topEl.style.transition='none'});
+stack.addEventListener('pointermove',e=>{if(sx===null)return;dx=e.clientX-sx;topEl.style.transform='translateX('+dx+'px) rotate('+(-3+dx/25)+'deg)'});
+function end(){
+  if(sx===null)return;sx=null;
+  const el=topEl;el.style.transition='transform .3s ease';
+  if(dx<-90&&order.length>1){
+    el.style.transform='translateX(-130vw) rotate(-30deg)';
+    [...stack.querySelectorAll('.back')].reverse().forEach((b,i)=>{b.style.transform='rotate('+ROT[i]+'deg)';if(i===0){const im=b.querySelector('img');if(im)im.style.filter='sepia(.22) contrast(1.05) saturate(.9)'}});
+    setTimeout(()=>{if(pos+1>=order.length)build();else pos++;render(false)},300);
+  }else{
+    el.style.transform='rotate(-3deg)';
+    if(dx>90)openSheet();
+  }
+}
+stack.addEventListener('pointerup',end);stack.addEventListener('pointercancel',end);
+
+// comment sheet
+function openSheet(){$('sheet').classList.add('open');$('txt').focus()}
+function closeSheet(){$('sheet').classList.remove('open');$('txt').value='';$('cnt').textContent='0/80'}
+$('txt').oninput=()=>$('cnt').textContent=$('txt').value.length+'/80';
+$('cancel').onclick=closeSheet;
+$('post').onclick=()=>{
+  const t=$('txt').value.trim().slice(0,80);if(!t)return;
+  const p=cur();if(!p)return;
+  const nm=$('name').value.trim().slice(0,24);
+  p.comments.push({name:nm,text:t});closeSheet();idx=p.comments.length-1;spawn();
+  api('/rest/v1/comments',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({photo_id:p.id,name:nm,text:t})}).catch(()=>alert('Comment could not be saved.'));
+};
+if(READY)refresh().then(()=>{if(!photos.length)render(false)});else render(false);
+</script>
+</body>
+</html>
